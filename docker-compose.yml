@@ -1,0 +1,13 @@
+services:
+  wishloom:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - wishloom_data:/app/data
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8080
+volumes:
+  wishloom_data:
