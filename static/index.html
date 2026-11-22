@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11101a">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>Wishloom — Your wishlist</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+  <div class="shell">
+    <nav class="topbar" aria-label="Main navigation">
+      <div class="brand"><span class="brand-star">✳</span> wishloom<span class="brand-dot">.</span></div>
+      <div class="nav-right">
+        <button type="button" class="share-top" id="shareTop">↗ <span>Share wishlist</span></button>
+      </div>
+    </nav>
+
+    <main class="main-content" id="mainContent">
+      <header class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span>✦</span> YOUR LITTLE CORNER OF THE INTERNET</div>
+          <div class="title-row"><h1 id="listTitle">My wishlist<span class="title-period">.</span></h1><button type="button" id="renameBtn" class="rename-button" aria-label="Rename wishlist" title="Rename wishlist">✎</button></div>
+          <p>Everything you're wishing for, all in one place. <span>A little dreaming never hurt.</span></p>
+          <div class="hero-meta"><span><i class="tiny-spark">✳</i> <strong id="activeCount">0</strong> wishes waiting</span><span class="meta-divider"></span><span><strong id="completeCount">0</strong> dreams come true</span></div>
+        </div>
+        <div class="hero-buttons"><button class="primary-btn hero-new" id="newBtn" type="button"><span class="plus-large">＋</span> New wish</button></div>
+      </header>
+
+      <section class="active-section" aria-label="Your wishes">
+        <div class="section-header compact-header">
+          <div class="section-title"><span class="section-spark">✧</span><h2>The wishlist</h2><span class="item-counter" id="visibleCount">0 items</span></div>
+          <button type="button" class="filter-toggle" id="filterToggle" aria-controls="filterReveal" aria-expanded="false">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16l-6.4 7.3v5.3l-3.2 1.6v-6.9L4 6Z"/></svg>
+            <span>Filter</span><span class="filter-active-count" id="filterActiveCount" hidden>1</span>
+          </button>
+        </div>
+        <div class="filter-reveal" id="filterReveal" aria-hidden="true" inert>
+          <div class="filter-reveal-inner">
+          <div class="filters-box">
+            <div class="filter-group price-filter-group">
+              <div class="filter-label">Price tier</div>
+              <div class="tier-filter-row" id="tierFilters">
+                <button type="button" class="tier-filter-pill tier-pill-indigo" data-price="indigo"><span class="pill-dot"></span> Under €20</button>
+                <button type="button" class="tier-filter-pill tier-pill-yellow" data-price="yellow"><span class="pill-dot"></span> €20 – 50</button>
+                <button type="button" class="tier-filter-pill tier-pill-orange" data-price="orange"><span class="pill-dot"></span> €50 – 75</button>
+                <button type="button" class="tier-filter-pill tier-pill-red" data-price="red"><span class="pill-dot"></span> €75+</button>
+                <button type="button" class="tier-filter-pill tier-pill-none" data-price="none"><span class="pill-dot"></span> No price</button>
+              </div>
+            </div>
+            <div class="filter-group sort-filter-group">
+              <label class="filter-label" for="sortSelect">Sort by</label>
+              <div class="controls">
+                <label class="select-wrap"><span class="sr-only">Filter or sort wishes</span><select id="sortSelect"><option value="score">Most wanted first</option><option value="high">Must have it · 8–10</option><option value="medium">Want it · 4–7</option><option value="low">Maybe someday · 1–3</option><option value="new">Newest first</option><option value="old">Oldest first</option><option value="price">Price: low to high</option><option value="alpha">Name A–Z</option></select></label>
+                <button type="button" class="outline-btn clear-filter-btn" id="clearFilters">Clear filters</button>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="wish-grid" id="activeGrid"></div>
+        <div class="empty-area" id="emptyState"><div class="empty-icon">✳</div><h3 id="emptyTitle">A blank canvas for big dreams.</h3><p id="emptyDescription">Your wishlist is waiting for its very first wish.</p><button class="primary-btn" id="emptyNew" type="button">＋ Add your first wish</button></div>
+      </section>
+
+      <section class="completed-section" aria-label="Completed wishes" id="completedSection">
+        <div class="completed-divider"><span></span><div>✦ &nbsp; COMPLETED <span id="completedLabel">0</span></div><span></span></div>
+        <p class="completed-subtitle">Little dreams, already come true.</p>
+        <div class="completed-grid" id="completedGrid"></div>
+        <p class="completed-empty" id="completedEmpty">Nothing here yet. The best part is still to come. ✳</p>
+      </section>
+
+      <footer class="footer"><span>Keep wishing. Keep finding little joys.</span><span>✳ wishloom.</span></footer>
+    </main>
+  </div>
+
+  <div class="selection-tray hidden" id="selectionTray" role="toolbar" aria-label="Selected wish actions">
+    <div class="selection-number"><span class="selection-dot">✓</span><strong id="selectedCount">1 selected</strong><button type="button" class="clear-btn" id="clearSelection">Clear</button></div>
+    <div class="selection-buttons"><button class="action-button" type="button" id="adjustSelected">✎ Adjust</button><button class="action-button accent-action" type="button" id="statusSelected">✓ Complete</button><button class="action-button danger-action" type="button" id="deleteSelected">✕ Remove</button></div>
+  </div>
+
+  <dialog id="wishDialog" class="wish-dialog" aria-labelledby="dialogTitle">
+    <form id="wishForm" class="dialog-panel" novalidate>
+      <header class="dialog-header"><div class="eyebrow"><span>✦</span> MAKE A WISH</div><button type="button" class="close-dialog" id="closeDialog" aria-label="Close">×</button><h2 id="dialogTitle">Something you're dreaming of<span>.</span></h2><p>Just the essentials. You can change everything later.</p></header>
+      <div class="dialog-fields">
+        <label class="field"><span>NAME OF THE ITEM <i>*</i></span><input type="text" id="itemName" maxlength="100" required placeholder="e.g. Cream leather handbag" autocomplete="off"></label>
+        <div class="rating-block"><div class="rating-top"><div><span class="field-title">HOW MUCH DO YOU WANT IT?</span><p>1 = a little curious &nbsp; · &nbsp; 10 = absolutely need it</p></div><div class="rating-number"><strong id="ratingValue">8</strong><span>/ 10</span></div></div><input type="range" min="1" max="10" value="8" step="1" id="itemRating" aria-label="Desired rating from 1 to 10"><div class="rating-labels"><span>JUST A THOUGHT</span><span>NEED IT NOW</span></div></div>
+        <label class="field"><span>SHORT DESCRIPTION <small>OPTIONAL</small></span><textarea id="itemDescription" rows="3" maxlength="800" placeholder="Color, size, model, material, style… anything that helps identify the item."></textarea></label>
+        <div class="price-block"><label class="field"><span>ESTIMATED PRICE <small>OPTIONAL</small></span><div class="price-input"><span>€</span><input type="number" min="0" step="0.01" max="10000000" id="itemPrice" inputmode="decimal" placeholder="e.g. 45"></div></label><div class="tier-preview" id="tierPreview"><i class="tier-bullet"></i><span>NO PRICE SET</span></div></div>
+        <div class="tier-legend"><span><i class="mini-dot indigo"></i> €0–20</span><span><i class="mini-dot yellow"></i> €20.01–50</span><span><i class="mini-dot orange"></i> €50.01–75</span><span><i class="mini-dot red"></i> €75+</span></div>
+        <div class="links-block"><div class="links-heading"><div><span class="field-title">WHERE TO FIND IT <small>OPTIONAL</small></span><p>Stores, product pages, Instagram posts, or anything useful.</p></div><button type="button" class="add-link" id="addLinkBtn">＋ Add link</button></div><div id="linkRows" class="link-rows"></div></div>
+        <details class="advanced"><summary>Have a specific product photo? <span>Optional</span></summary><label class="field"><span>IMAGE URL</span><input type="url" id="customImage" placeholder="https://example.com/product.jpg"><small>Otherwise, Wishloom will look for a product picture from your links or generate one if AI images are configured.</small></label></details>
+      </div>
+      <footer class="dialog-actions"><button type="button" class="outline-btn" id="cancelDialog">Cancel</button><button type="submit" class="primary-btn" id="saveBtn">Add to wishlist <span>↗</span></button></footer>
+    </form>
+  </dialog>
+
+  <dialog class="rename-dialog" id="renameDialog" aria-labelledby="renameTitle"><form id="renameForm" class="rename-panel"><div class="dialog-header"><button type="button" id="closeRename" class="close-dialog" aria-label="Close">×</button><div class="eyebrow">YOUR WISHLIST</div><h2 id="renameTitle">Give it a name<span>.</span></h2></div><label class="field"><span>WISHLIST NAME</span><input type="text" id="renameInput" required maxlength="70"></label><div class="dialog-actions"><button class="outline-btn" type="button" id="cancelRename">Cancel</button><button type="submit" class="primary-btn">Save name ↗</button></div></form></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
